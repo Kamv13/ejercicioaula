@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Kamv13/ejercicioaula#readme",
   "description": "",
   "dependencies": {
+    "express": "^5.1.0",
     "node": "^22.18.0"
   }
 }

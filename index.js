@@ -28,6 +28,20 @@ let books = [
   },
 ];
 
+app.get('/books',(req,res)=>{
+    res.json(books);
+})
+
+app.get('/books/:id', (req,res)=>{
+    const id = Number(req.params.id);
+    const book = books.find(b => b.id === id);
+
+    if(!book){
+        return res.status(404).json({error: 'Libro no encontrado'})
+    }
+    res.json(book)
+})
+
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en ${PORT}`);
 });

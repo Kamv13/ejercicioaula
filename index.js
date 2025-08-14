@@ -45,3 +45,40 @@ app.get('/books/:id', (req,res)=>{
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en ${PORT}`);
 });
+
+
+// POST agregar libro
+app.post("/api/books", (req, res) => {
+  const nuevoLibro = {
+    id: books.length ? books[books.length - 1].id + 1 : 1,
+    ...req.body
+  };
+  books.push(nuevoLibro);
+  res.status(201).json(nuevoLibro);
+});
+
+// PUT actualizar libro
+app.put("/api/books/:id", (req, res) => {
+  const index = books.findIndex(b => b.id === parseInt(req.params.id));
+  if (index !== -1) {
+    books[index] = { id: books[index].id, ...req.body };
+    res.json(books[index]);
+  } else {
+    res.status(404).json({ mensaje: "Libro no encontrado" });
+  }
+});
+
+// DELETE eliminar libro
+app.delete("/api/books/:id", (req, res) => {
+  const nuevaLista = books.filter(b => b.id !== parseInt(req.params.id));
+  if (nuevaLista.length === books.length) {
+    res.status(404).json({ mensaje: "Libro no encontrado" });
+  } else {
+    books = nuevaLista;
+    res.json({ mensaje: "Libro eliminado" });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});

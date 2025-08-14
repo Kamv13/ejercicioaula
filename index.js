@@ -31,16 +31,7 @@ let books = [
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en ${PORT}`);
 });
-// GET todos los libros
-app.get("/api/books", (req, res) => {
-  res.json(books);
-});
 
-// GET libro por ID
-app.get("/api/books/:id", (req, res) => {
-  const book = books.find(b => b.id === parseInt(req.params.id));
-  book ? res.json(book) : res.status(404).json({ mensaje: "Libro no encontrado" });
-});
 
 // POST agregar libro
 app.post("/api/books", (req, res) => {
